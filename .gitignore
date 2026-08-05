@@ -1,0 +1,27 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Node (虽然项目不用 node，但避免误提交)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 临时文件
+*.tmp
+*.bak
+*.log
+
+# 本地预览脚本（不是项目本身）
+screenshot.js
+debug*.js

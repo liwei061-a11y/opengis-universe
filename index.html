@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenGIS Universe · 开源 GIS 软件综合展示</title>
+  <meta name="description" content="收录全球优质开源地理信息系统软件，覆盖桌面 GIS、Web 地图、空间数据库、空间分析、可视化、3D 地球等方向。">
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            body: ['"Inter"', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            cyber: {
+              bg: '#05060f',
+              panel: 'rgba(15, 18, 36, 0.65)',
+              border: 'rgba(99, 246, 255, 0.18)',
+              glow: '#63f6ff',
+              violet: '#9a7dff',
+              pink: '#ff7eb6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-cyber-bg text-slate-100 font-body antialiased overflow-x-hidden">
+
+  <!-- 全局背景层 -->
+  <div class="fixed inset-0 -z-10 bg-cyber-bg"></div>
+  <canvas id="bg-canvas" class="fixed inset-0 -z-10"></canvas>
+  <div class="grid-overlay fixed inset-0 -z-10 opacity-30 pointer-events-none"></div>
+
+  <!-- 顶部导航 -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-cyber-bg/70 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-cyber-glow to-cyber-violet flex items-center justify-center text-cyber-bg font-display font-bold text-lg shadow-lg shadow-cyber-glow/30 group-hover:shadow-cyber-glow/60 transition-shadow">
+          ◉
+        </div>
+        <div>
+          <div class="font-display font-semibold tracking-wide text-base">OpenGIS Universe</div>
+          <div class="text-[10px] text-slate-500 uppercase tracking-widest -mt-0.5">open source geo · curated</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-7 text-sm text-slate-300">
+        <a href="#home" class="nav-link">首页</a>
+        <a href="#explore" class="nav-link">软件库</a>
+        <a href="#categories" class="nav-link">分类</a>
+        <a href="#timeline" class="nav-link">发展史</a>
+        <a href="#stack" class="nav-link">技术栈</a>
+        <a href="#contribute" class="nav-link">贡献</a>
+      </nav>
+      <a href="https://www.osgeo.org" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-cyber-glow/40 text-cyber-glow text-xs font-mono hover:bg-cyber-glow hover:text-cyber-bg transition">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyber-glow animate-pulse"></span>
+        OSGeo · live
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+    <!-- 装饰光晕 -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-cyber-glow/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-32 w-[500px] h-[500px] bg-cyber-violet/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-cyber-pink/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <!-- 左侧文字 -->
+      <div class="space-y-7">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyber-glow/30 bg-cyber-glow/5 text-cyber-glow text-xs font-mono uppercase tracking-widest">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyber-glow animate-ping"></span>
+          v2026 · curated by community
+        </div>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight">
+          探索开源<br>
+          <span class="text-gradient">地理信息宇宙</span>
+        </h1>
+        <p class="text-lg text-slate-400 leading-relaxed max-w-xl">
+          从桌面端到云端，从二维地图到三维数字孪生。
+          <span class="text-slate-200">50+</span> 个全球最值得关注的开源 GIS 项目，
+          一个站点全面了解。
+        </p>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="#explore" class="btn-primary group">
+            开始探索
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="btn-ghost">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.085 1.84 1.236 1.84 1.236 1.07 1.834 2.807 1.304 3.492.997.108-.776.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.467-2.382 1.235-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.323 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.29-1.553 3.297-1.23 3.297-1.23.654 1.652.243 2.873.12 3.176.77.838 1.233 1.91 1.233 3.22 0 4.608-2.807 5.62-5.48 5.92.43.372.823 1.102.823 2.222 0 1.604-.015 2.896-.015 3.286 0 .322.218.694.825.576C20.565 21.795 24 17.297 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+
+        <!-- 统计 -->
+        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/5">
+          <div class="stat-block">
+            <div class="stat-num" data-target="50" data-suffix="+">0</div>
+            <div class="stat-label">收录软件</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num" data-target="380" data-suffix="k+">0</div>
+            <div class="stat-label">GitHub Stars</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num" data-target="8" data-suffix="">0</div>
+            <div class="stat-label">核心领域</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧 3D 地球 -->
+      <div class="relative h-[480px] lg:h-[600px] flex items-center justify-center">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div id="earth-container" class="w-full h-full"></div>
+        </div>
+        <!-- 浮动数据点 -->
+        <div class="absolute top-12 right-6 float-card">
+          <div class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Active Now</div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-mono text-sm">12,847 devs</span>
+          </div>
+        </div>
+        <div class="absolute bottom-16 left-2 float-card">
+          <div class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Live Projects</div>
+          <div class="font-mono text-sm text-cyber-glow">50+ curated</div>
+        </div>
+        <div class="absolute top-1/2 -right-2 float-card">
+          <div class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Coverage</div>
+          <div class="font-mono text-sm text-cyber-violet">8 categories</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 滚动提示 -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 text-xs">
+      <span class="tracking-widest uppercase">scroll to explore</span>
+      <div class="w-px h-8 bg-gradient-to-b from-cyber-glow to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- 分类导航 -->
+  <section id="categories" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="text-cyber-glow font-mono text-xs uppercase tracking-[0.3em] mb-3">// 8 domains · 50+ projects</div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">按领域浏览</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">从桌面端到云端，开源 GIS 已经渗透到地理信息产业链的每一个环节。</p>
+      </div>
+
+      <div id="category-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- 由 JS 渲染 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 软件库 -->
+  <section id="explore" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div>
+          <div class="text-cyber-glow font-mono text-xs uppercase tracking-[0.3em] mb-3">// explore</div>
+          <h2 class="font-display text-4xl md:text-5xl font-bold mb-2">软件库</h2>
+          <p class="text-slate-400">点击分类筛选，或直接搜索你感兴趣的项目。</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div class="search-box">
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input id="search-input" type="text" placeholder="搜索项目名、标签、语言…" class="bg-transparent border-0 outline-none text-sm flex-1 placeholder:text-slate-600">
+          </div>
+          <button id="filter-featured" class="btn-ghost whitespace-nowrap">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            精选
+          </button>
+        </div>
+      </div>
+
+      <!-- 分类筛选条 -->
+      <div id="filter-bar" class="flex flex-wrap gap-2 mb-8 pb-8 border-b border-white/5">
+        <!-- JS 渲染 -->
+      </div>
+
+      <!-- 软件卡片 -->
+      <div id="software-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- JS 渲染 -->
+      </div>
+
+      <div id="no-results" class="hidden text-center py-16 text-slate-500">
+        <div class="text-6xl mb-3 opacity-30">⌖</div>
+        <p>没有匹配的项目，试试别的关键词？</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 发展史时间线 -->
+  <section id="timeline" class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyber-glow/5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="text-cyber-glow font-mono text-xs uppercase tracking-[0.3em] mb-3">// evolution</div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">开源 GIS 发展史</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">从 1986 年 GRASS 诞生到 2024 年 LLM 与地理融合，每一次转折都重塑了行业格局。</p>
+      </div>
+
+      <div class="relative">
+        <!-- 中间轴线 -->
+        <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cyber-glow/50 to-transparent"></div>
+
+        <div id="timeline-list" class="space-y-8">
+          <!-- JS 渲染 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技术栈生态 -->
+  <section id="stack" class="relative py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="text-cyber-glow font-mono text-xs uppercase tracking-[0.3em] mb-3">// ecosystem</div>
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">技术生态</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">从底层到上层，开源 GIS 项目构成了一个完整、可演进的地理信息栈。</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- 栈图 -->
+        <div class="card p-8">
+          <div class="text-xs text-cyber-glow font-mono uppercase tracking-widest mb-6">// layer stack</div>
+          <div class="space-y-4">
+            <div class="stack-layer" style="--c: #63f6ff">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 5</div>
+                  <div class="font-semibold">应用层 · Applications</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">QGIS · Kepler · Cesium</div>
+              </div>
+            </div>
+            <div class="stack-layer" style="--c: #9a7dff">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 4</div>
+                  <div class="font-semibold">可视化层 · Visualization</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">D3 · ECharts · deck.gl</div>
+              </div>
+            </div>
+            <div class="stack-layer" style="--c: #ff7eb6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 3</div>
+                  <div class="font-semibold">Web 地图层 · Web Mapping</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">Leaflet · OpenLayers · MapLibre</div>
+              </div>
+            </div>
+            <div class="stack-layer" style="--c: #10b981">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 2</div>
+                  <div class="font-semibold">服务层 · Services</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">GeoServer · MapServer · tileserver-gl</div>
+              </div>
+            </div>
+            <div class="stack-layer" style="--c: #f59e0b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 1</div>
+                  <div class="font-semibold">存储层 · Storage</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">PostGIS · SpatiaLite · Sedona</div>
+              </div>
+            </div>
+            <div class="stack-layer" style="--c: #ef4444">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-500 uppercase tracking-wider">Layer 0</div>
+                  <div class="font-semibold">内核层 · Core</div>
+                </div>
+                <div class="text-xs font-mono text-slate-400">GDAL · PROJ · GEOS · JTS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 标签云 -->
+        <div class="card p-8">
+          <div class="text-xs text-cyber-glow font-mono uppercase tracking-widest mb-6">// hot tags</div>
+          <div id="tag-cloud" class="flex flex-wrap gap-2.5">
+            <!-- JS 渲染 -->
+          </div>
+          <div class="mt-8 pt-6 border-t border-white/5">
+            <div class="text-xs text-slate-500 uppercase tracking-widest mb-4">// languages</div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="lang-item"><span class="lang-dot" style="background:#3572A5"></span>Python <span class="text-slate-500 text-xs ml-auto">12</span></div>
+              <div class="lang-item"><span class="lang-dot" style="background:#f1e05a"></span>JavaScript <span class="text-slate-500 text-xs ml-auto">10</span></div>
+              <div class="lang-item"><span class="lang-dot" style="background:#b07219"></span>Java <span class="text-slate-500 text-xs ml-auto">6</span></div>
+              <div class="lang-item"><span class="lang-dot" style="background:#dea584"></span>Rust <span class="text-slate-500 text-xs ml-auto">1</span></div>
+              <div class="lang-item"><span class="lang-dot" style="background:#555"></span>C / C++ <span class="text-slate-500 text-xs ml-auto">6</span></div>
+              <div class="lang-item"><span class="lang-dot" style="background:#00ADD8"></span>Go <span class="text-slate-500 text-xs ml-auto">2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 贡献号召 -->
+  <section id="contribute" class="relative py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="text-cyber-glow font-mono text-xs uppercase tracking-[0.3em] mb-3">// get involved</div>
+      <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">一起构建这份清单</h2>
+      <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+        发现遗漏的优秀项目？欢迎提交 PR。本站使用纯静态架构，所有数据都在
+        <code class="px-2 py-0.5 rounded bg-white/5 text-cyber-glow font-mono text-sm">js/data.js</code>。
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="btn-primary">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          添加新项目
+        </a>
+        <a href="https://www.osgeo.org" target="_blank" rel="noopener" class="btn-ghost">
+          访问 OSGeo →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative border-t border-white/5 py-12">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm text-slate-500">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-7 h-7 rounded-md bg-gradient-to-br from-cyber-glow to-cyber-violet flex items-center justify-center text-cyber-bg font-bold">◉</div>
+          <span class="font-display text-slate-200">OpenGIS Universe</span>
+        </div>
+        <p class="leading-relaxed">为开发者、研究者与决策者打造的开源地理信息导航。</p>
+      </div>
+      <div>
+        <div class="text-slate-300 font-semibold mb-3 text-xs uppercase tracking-widest">资源</div>
+        <ul class="space-y-1.5">
+          <li><a href="https://www.osgeo.org" class="hover:text-cyber-glow transition">OSGeo 基金会</a></li>
+          <li><a href="https://www.openstreetmap.org" class="hover:text-cyber-glow transition">OpenStreetMap</a></li>
+          <li><a href="https://www.ogc.org" class="hover:text-cyber-glow transition">OGC 标准</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-slate-300 font-semibold mb-3 text-xs uppercase tracking-widest">数据</div>
+        <ul class="space-y-1.5">
+          <li>License: MIT</li>
+          <li>Build: 2026.08</li>
+          <li>Stack: HTML · Tailwind · Three.js</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-white/5 text-center text-xs text-slate-600">
+      © 2026 OpenGIS Universe · Built with care for the geo community
+    </div>
+  </footer>
+
+  <!-- 脚本 -->
+  <script src="js/data.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
