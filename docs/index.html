@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenGIS Universe · Project Presentation</title>
+  <meta name="description" content="12-page project overview deck for OpenGIS Universe.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 背景 -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- 顶部导航 -->
+  <header class="top-bar">
+    <a href="https://github.com/liwei061-a11y/opengis-universe" class="brand" target="_blank" rel="noopener">
+      <span class="brand-mark">◉</span>
+      <span class="brand-text">
+        <span class="brand-name">OpenGIS Universe</span>
+        <span class="brand-sub">project presentation</span>
+      </span>
+    </a>
+    <nav class="top-nav">
+      <a href="#slides">Slides</a>
+      <a href="#viewer">Viewer</a>
+      <a href="https://github.com/liwei061-a11y/opengis-universe" target="_blank" rel="noopener" class="nav-cta">
+        <span class="dot"></span> GitHub
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="tag">//  12-PAGE  DECK  ·  v2026.08</div>
+      <h1 class="title">
+        Project <span class="grad">Overview</span>
+        <br>项目介绍
+      </h1>
+      <p class="lede">
+        一份关于 <span class="hl">OpenGIS Universe</span> 的开源 GIS 软件综合展示站介绍，
+        12 张幻灯片，覆盖愿景、数据、技术栈与快速开始。
+      </p>
+      <div class="cta-row">
+        <a href="opengis-universe-overview.pptx" download class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          下载 PPTX
+          <span class="btn-meta">902 KB</span>
+        </a>
+        <a href="opengis-universe-overview.pdf" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          打开 PDF
+          <span class="btn-meta">482 KB</span>
+        </a>
+        <a href="#viewer" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          在线预览
+        </a>
+      </div>
+
+      <!-- 数据条 -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">12</div>
+          <div class="stat-label">SLIDES</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">PROJECTS</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-label">DOMAINS</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <div class="stat-num">MIT</div>
+          <div class="stat-label">LICENSE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 缩略图网格 -->
+  <section id="slides" class="section">
+    <div class="section-head">
+      <div class="section-tag">//  ALL  SLIDES</div>
+      <h2 class="section-title">12 张幻灯片</h2>
+      <p class="section-sub">点击任意缩略图查看大图</p>
+    </div>
+    <div id="thumb-grid" class="thumb-grid">
+      <!-- JS 渲染 -->
+    </div>
+  </section>
+
+  <!-- 在线 PDF 查看器 -->
+  <section id="viewer" class="section">
+    <div class="section-head">
+      <div class="section-tag">//  INLINE  VIEWER</div>
+      <h2 class="section-title">在线预览</h2>
+      <p class="section-sub">在浏览器中直接查看 PDF 全文</p>
+    </div>
+    <div class="viewer-frame">
+      <div class="viewer-toolbar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="viewer-url">opengis-universe-overview.pdf</span>
+        <a href="opengis-universe-overview.pdf" target="_blank" rel="noopener" class="viewer-open">新窗口打开 →</a>
+      </div>
+      <iframe src="opengis-universe-overview.pdf#toolbar=1" title="Presentation PDF" class="pdf-frame"></iframe>
+      <noscript>
+        <div class="viewer-fallback">
+          JavaScript 已禁用，请<a href="opengis-universe-overview.pdf" download>下载 PDF</a>查看
+        </div>
+      </noscript>
+    </div>
+    <p class="viewer-hint">如果 PDF 未显示，<a href="opengis-universe-overview.pdf" target="_blank" rel="noopener">点此在新窗口打开</a>，或<a href="opengis-universe-overview.pptx" download>下载 PPTX</a>在 PowerPoint / Keynote / WPS 中查看。</p>
+  </section>
+
+  <!-- 底部 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">◉ OpenGIS Universe</div>
+        <div class="footer-tag">Built for the geo community · 2026</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/liwei061-a11y/opengis-universe" target="_blank" rel="noopener">GitHub Repo</a>
+        <a href="../">← Back to Project</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+    <button class="lb-close" onclick="closeLightbox(event, true)">×</button>
+    <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lb-next" onclick="lbNav(1)">›</button>
+    <div class="lb-counter"><span id="lb-counter">1 / 12</span></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

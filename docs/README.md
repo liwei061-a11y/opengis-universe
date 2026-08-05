@@ -2,10 +2,23 @@
 
 > 12-page project overview deck for OpenGIS Universe.
 
+## 🌐 在线预览
+
+打开 [`index.html`](./index.html) 即可在浏览器中查看完整 PPT，支持：
+
+- 12 张缩略图网格浏览（点击放大）
+- 内嵌 PDF 在线查看器
+- 一键下载 PPTX / PDF
+
+> GitHub Pages 用户访问路径：`https://<username>.github.io/opengis-universe/docs/`
+
 ## 📦 Files
 
 | File | Format | Size | Use Case |
 |------|--------|------|----------|
+| `index.html` | HTML | — | Browser preview page |
+| `styles.css` | CSS | — | Page styles |
+| `app.js` | JS | — | Thumbnail + lightbox |
 | `opengis-universe-overview.pptx` | PowerPoint | 902 KB | Editable, primary deliverable |
 | `opengis-universe-overview.pdf`  | PDF        | 482 KB | Read-only, easy to share |
 | `preview/slide-*.png`           | PNG        | 12 images | Quick preview of each slide |
